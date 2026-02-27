@@ -10,6 +10,23 @@ public class Generator implements Runnable {
 
     @Override
     public void run() {
+        try {
+            for (int i = 0; i < N_jobs; i++) {
+                Job j = new Job(
+                        i,
+                        (int)(Math.random() * 100 - 50),
+                        (int)(Math.random() * 100 - 50),
+                        Op.values()[(int)(Math.random() * Op.values().length)],
+                        System.nanoTime()
+                );
 
+                ValidatorQueue.put(j);
+            }
+
+            ValidatorQueue.put(Job.STOP);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
