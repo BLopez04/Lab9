@@ -1,3 +1,5 @@
+import java.util.Optional;
+
 public class Validator implements Runnable {
     private StageQueue<Job> ValidatorQueue;
     private StageQueue<SolvedJob> AggregatorQueue;
@@ -36,7 +38,7 @@ public class Validator implements Runnable {
                 }
 
                 if (!valid) {
-                    SolvedJob invalid = new SolvedJob(j, 0, false, reason, System.nanoTime());
+                    SolvedJob invalid = new SolvedJob(j, Optional.of(0), false, reason, System.nanoTime());
                     AggregatorQueue.put(invalid);
                     continue;
                 }
